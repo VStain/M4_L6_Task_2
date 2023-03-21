@@ -17,34 +17,15 @@ public:
     {
         cout << name;
     }
-    void Sides()
+    void Print_info()
     {
-        cout << "Стороны: "
-            << "a = " << a_side
-            << " b = " << b_side
-            << " c = " << c_side
-            << " d = " << d_side << endl;
-    }
-    void Angles()
-    {
-        cout << "Углы: "
-            << "A = " << A_angle
-            << " B = " << B_angle
-            << " C = " << C_angle
-            << " D = " << D_angle << endl;
+        cout << name;
+        cout << sides_count << endl;
     }
 
 protected:
     int sides_count = 0;
     string name = "Фигура: ";
-    int a_side = 0;
-    int b_side = 0;
-    int c_side = 0;
-    int d_side = 0;
-    int A_angle = 0;
-    int B_angle = 0;
-    int C_angle = 0;
-    int D_angle = 0;
 };
 
 class Triangle :public Figure
@@ -52,17 +33,38 @@ class Triangle :public Figure
 public:
     Triangle()
     {
-
         name = "Треугольник: ";
         sides_count = 3;
-        a_side = 10;
-        b_side = 20;
-        c_side = 30;
-        A_angle = 50;
-        B_angle = 60;
-        C_angle = 70;
-
+        int a_side = 10;
+        int b_side = 20;
+        int c_side = 30;
+        int A_angle = 50;
+        int B_angle = 60;
+        int C_angle = 70;
     }
+
+    void Sides()
+    {
+        cout << "Стороны: "
+            << "a = " << a_side
+            << " b = " << b_side
+            << " c = " << c_side << endl;
+    }
+
+    void Angles()
+    {
+        cout << "Углы: "
+            << "A = " << A_angle
+            << " B = " << B_angle
+            << " C = " << C_angle << endl << endl << endl;
+    }
+protected:
+    int a_side = 0;
+    int b_side = 0;
+    int c_side = 0;
+    int A_angle = 0;
+    int B_angle = 0;
+    int C_angle = 0;
 };
 
 class Quadrangle :public Figure
@@ -81,9 +83,37 @@ public:
         C_angle = 70;
         D_angle = 80;
     }
+
+    void Sides()
+    {
+        cout << "Стороны: "
+            << "a = " << a_side
+            << " b = " << b_side
+            << " c = " << c_side
+            << " d = " << d_side << endl;
+    }
+
+    void Angles()
+    {
+        cout << "Углы: "
+            << "A = " << A_angle
+            << " B = " << B_angle
+            << " C = " << C_angle
+            << " D = " << D_angle << endl << endl;
+    }
+
+protected:
+    int a_side = 0;
+    int b_side = 0;
+    int c_side = 0;
+    int d_side = 0;
+    int A_angle = 0;
+    int B_angle = 0;
+    int C_angle = 0;
+    int D_angle = 0;
 };
 
-class Right_Triangle : public Figure
+class Right_Triangle : public Triangle
 {
 public:
     Right_Triangle()
@@ -99,7 +129,7 @@ public:
     }
 };
 
-class Isosceles_Triangle : public Figure
+class Isosceles_Triangle : public Triangle
 {
 public:
     Isosceles_Triangle()
@@ -115,7 +145,7 @@ public:
     }
 };
 
-class Equilateral_Triangle : public Figure
+class Equilateral_Triangle : public Triangle
 {
 public:
     Equilateral_Triangle()
@@ -129,11 +159,10 @@ public:
         B_angle = 60;
         C_angle = 60;
     }
-
 };
 
 
-class Rectangle : public Figure
+class Rectangle : public Quadrangle
 {
 public:
     Rectangle()
@@ -149,15 +178,14 @@ public:
         C_angle = 90;
         D_angle = 90;
     }
-
 };
 
-class Square : public Figure
+class Square : public Quadrangle
 {
 public:
     Square()
     {
-        name = "Прямоугольник: ";
+        name = "Квадрат: ";
         sides_count = 4;
         a_side = 20;
         b_side = 20;
@@ -168,10 +196,9 @@ public:
         C_angle = 90;
         D_angle = 90;
     }
-
 };
 
-class Parallelogram : public Figure
+class Parallelogram : public Quadrangle
 {
 public:
     Parallelogram()
@@ -189,7 +216,7 @@ public:
     }
 };
 
-class Rhomb : public Figure
+class Rhomb : public Quadrangle
 {
 public:
     Rhomb()
@@ -211,17 +238,57 @@ int main()
 {
     setlocale(LC_ALL, "Rus");
 
-    Figure Figure;
-    Triangle Triangle;
-    Quadrangle Quadrangle;
 
-    Right_Triangle Right_Triangle;
+   Figure figure;
+   Triangle triangle;
+   Right_Triangle right_triangle;
+   Triangle* figure_triangle = &right_triangle;
 
-    Right_Triangle.Get_name();
+   figure_triangle->Get_name();
+   figure_triangle->Get_side();
+   figure_triangle->Print_info();
+   //figure_triangle->();
+
+
+
+    /*Right_Triangle.Get_name();
     Right_Triangle.Get_side();
     Right_Triangle.Sides();
     Right_Triangle.Angles();
+    */
+    Isosceles_Triangle Isosceles_Triangle;
 
-    
+    Isosceles_Triangle.Get_name();
+    Isosceles_Triangle.Get_side();
+    Isosceles_Triangle.Sides();
+    Isosceles_Triangle.Angles();
+
+    Equilateral_Triangle Equilateral_Triangle;
+
+    Equilateral_Triangle.Get_name();
+    Equilateral_Triangle.Get_side();
+    Equilateral_Triangle.Sides();
+    Equilateral_Triangle.Angles();
+
+    Rectangle Rectangle;
+
+    Rectangle.Get_name();
+    Rectangle.Get_side();
+    Rectangle.Sides();
+    Rectangle.Angles();
+
+    Square Square;
+
+    Square.Get_name();
+    Square.Get_side();
+    Square.Sides();
+    Square.Angles();
+
+    Parallelogram Parallelogram;
+
+    Parallelogram.Get_name();
+    Parallelogram.Get_side();
+    Parallelogram.Sides();
+    Parallelogram.Angles();
 
 }
