@@ -5,22 +5,15 @@ using namespace std;
 class Figure
 {
 public:
-    Figure()
+    Figure() 
     {
 
     }
-    void Get_side()
+
+    virtual void Print_info()
     {
-        cout << sides_count << endl;
-    }
-    void Get_name()
-    {
-        cout << name;
-    }
-    void Print_info()
-    {
-        cout << name;
-        cout << sides_count << endl;
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
     }
 
 protected:
@@ -31,33 +24,30 @@ protected:
 class Triangle :public Figure
 {
 public:
+    Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle)
+    {
+        name = "Треугольник ";
+        sides_count = 3;
+        this->a_side = a_side;
+        this->b_side = b_side;
+        this->c_side = c_side;
+        this->A_angle = A_angle;
+        this->B_angle = B_angle;
+        this->C_angle = C_angle;
+    }
     Triangle()
     {
-        name = "Треугольник: ";
-        sides_count = 3;
-        int a_side = 10;
-        int b_side = 20;
-        int c_side = 30;
-        int A_angle = 50;
-        int B_angle = 60;
-        int C_angle = 70;
+
     }
 
-    void Sides()
+    void Print_info() override
     {
-        cout << "Стороны: "
-            << "a = " << a_side
-            << " b = " << b_side
-            << " c = " << c_side << endl;
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << endl << endl;
     }
 
-    void Angles()
-    {
-        cout << "Углы: "
-            << "A = " << A_angle
-            << " B = " << B_angle
-            << " C = " << C_angle << endl << endl << endl;
-    }
 protected:
     int a_side = 0;
     int b_side = 0;
@@ -70,36 +60,26 @@ protected:
 class Quadrangle :public Figure
 {
 public:
-    Quadrangle()
+    Quadrangle(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
     {
-        name = "Четырехугольник: ";
+        name = "Четырехугольник ";
         sides_count = 4;
-        a_side = 10;
-        b_side = 20;
-        c_side = 30;
-        d_side = 40;
-        A_angle = 50;
-        B_angle = 60;
-        C_angle = 70;
-        D_angle = 80;
+        this->a_side = a_side;
+        this->b_side = b_side;
+        this->c_side = c_side;
+        this->d_side = d_side;
+        this->A_angle = A_angle;
+        this->B_angle = B_angle;
+        this->C_angle = C_angle;
+        this->D_angle = D_angle;
     }
 
-    void Sides()
+    void Print_info() override
     {
-        cout << "Стороны: "
-            << "a = " << a_side
-            << " b = " << b_side
-            << " c = " << c_side
-            << " d = " << d_side << endl;
-    }
-
-    void Angles()
-    {
-        cout << "Углы: "
-            << "A = " << A_angle
-            << " B = " << B_angle
-            << " C = " << C_angle
-            << " D = " << D_angle << endl << endl;
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << " d = " << d_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << " D = " << D_angle << endl << endl;
     }
 
 protected:
@@ -116,48 +96,60 @@ protected:
 class Right_Triangle : public Triangle
 {
 public:
-    Right_Triangle()
+    Right_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle) 
+        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle) 
     {
-        name = "Прямоугольный треугольник: ";
-        sides_count = 3;
-        a_side = 10;
-        b_side = 20;
-        c_side = 30;
-        A_angle = 50;
-        B_angle = 60;
+        name = "Прямоугольный треугольник";
         C_angle = 90;
+    }
+
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << endl << endl;
     }
 };
 
 class Isosceles_Triangle : public Triangle
 {
 public:
-    Isosceles_Triangle()
+    Isosceles_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle) 
+        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle) 
     {
-        name = "Равнобедренный треугольник: ";
-        sides_count = 3;
-        a_side = 10;
-        b_side = 20;
-        c_side = 10;
-        A_angle = 50;
-        B_angle = 60;
-        C_angle = 50;
+        name = "Равнобедренный треугольник ";
+        a_side = c_side;
+        A_angle = C_angle;
+    }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << endl << endl;
     }
 };
 
 class Equilateral_Triangle : public Triangle
 {
 public:
-    Equilateral_Triangle()
+    Equilateral_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle)
+        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle)
     {
-        name = "Равносторонний треугольник: ";
+        name = "Равносторонний треугольник ";
         sides_count = 3;
-        a_side = 30;
-        b_side = 30;
-        c_side = 30;
+        a_side = b_side = c_side;
         A_angle = 60;
         B_angle = 60;
         C_angle = 60;
+    }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << endl << endl;
     }
 };
 
@@ -165,130 +157,130 @@ public:
 class Rectangle : public Quadrangle
 {
 public:
-    Rectangle()
+    Rectangle(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle) 
+        : Quadrangle (a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
-        name = "Прямоугольник: ";
+        name = "Прямоугольник ";
         sides_count = 4;
-        a_side = 10;
-        b_side = 20;
-        c_side = 10;
-        d_side = 20;
+        a_side = c_side;
+        b_side = d_side;
         A_angle = 90;
         B_angle = 90;
         C_angle = 90;
         D_angle = 90;
+    }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << " d = " << d_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << " D = " << D_angle << endl << endl;
     }
 };
 
 class Square : public Quadrangle
 {
 public:
-    Square()
+    Square(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+        : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
-        name = "Квадрат: ";
+        name = "Квадрат ";
         sides_count = 4;
-        a_side = 20;
-        b_side = 20;
-        c_side = 20;
-        d_side = 20;
+        a_side = b_side = c_side = d_side;
         A_angle = 90;
         B_angle = 90;
         C_angle = 90;
         D_angle = 90;
+    }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << " d = " << d_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << " D = " << D_angle << endl << endl;
     }
 };
 
 class Parallelogram : public Quadrangle
 {
 public:
-    Parallelogram()
+    Parallelogram(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+        : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
-        name = "Параллелограмм: ";
+        name = "Параллелограмм ";
         sides_count = 4;
-        a_side = 20;
-        b_side = 30;
-        c_side = 20;
-        d_side = 30;
-        A_angle = 30;
-        B_angle = 40;
-        C_angle = 30;
-        D_angle = 40;
+        a_side = c_side;
+        b_side = d_side;
+        A_angle = C_angle;
+        B_angle = D_angle;
+    }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << " d = " << d_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << " D = " << D_angle << endl << endl;
     }
 };
 
 class Rhomb : public Quadrangle
 {
 public:
-    Rhomb()
+    Rhomb(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+        : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
-        name = "Ромб: ";
+        name = "Ромб ";
         sides_count = 4;
-        a_side = 30;
-        b_side = 30;
-        c_side = 30;
-        d_side = 30;
-        A_angle = 30;
-        B_angle = 40;
-        C_angle = 30;
-        D_angle = 40;
+        a_side = b_side = c_side = d_side;
+        A_angle = C_angle;
+        B_angle = D_angle;
     }
+    void Print_info() override
+    {
+        cout << "Название фигуры: " << name << endl;
+        cout << "Количество сторон: " << sides_count << endl;
+        cout << "Стороны: a = " << a_side << " b = " << b_side << " c = " << c_side << " d = " << d_side << endl;
+        cout << "Углы: A = " << A_angle << " B = " << B_angle << " C = " << C_angle << " D = " << D_angle << endl << endl;
+    };
 };
+
+void Print_info(Figure* figure)
+{
+    figure->Print_info();
+}
 
 int main()
 {
-    setlocale(LC_ALL, "Rus");
+   setlocale(LC_ALL, "Rus");
 
 
    Figure figure;
-   Triangle triangle;
-   Right_Triangle right_triangle;
-   Triangle* figure_triangle = &right_triangle;
+   Triangle triangle(10, 20, 30, 50, 60, 70);
+   Print_info(&triangle);
 
-   figure_triangle->Get_name();
-   figure_triangle->Get_side();
-   figure_triangle->Print_info();
-   //figure_triangle->();
+   Right_Triangle right_triangle(10, 20, 30, 50, 60, 90);
+   Print_info(&right_triangle);
 
+   Isosceles_Triangle Isosceles_Triangle(10, 20, 10, 50, 60, 50);
+   Print_info(&Isosceles_Triangle);
 
+   Equilateral_Triangle Equilateral_Triangle(30, 30, 30, 60, 60, 60);
+   Print_info(&Equilateral_Triangle);
 
-    /*Right_Triangle.Get_name();
-    Right_Triangle.Get_side();
-    Right_Triangle.Sides();
-    Right_Triangle.Angles();
-    */
-    Isosceles_Triangle Isosceles_Triangle;
+   Quadrangle Quadrangle(10, 20, 30, 40, 50, 60, 70, 80);
+   Print_info(&Quadrangle);
 
-    Isosceles_Triangle.Get_name();
-    Isosceles_Triangle.Get_side();
-    Isosceles_Triangle.Sides();
-    Isosceles_Triangle.Angles();
+   Rectangle Rectangle(10, 20, 10, 20, 90, 90, 90, 90);
+   Print_info(&Rectangle);
 
-    Equilateral_Triangle Equilateral_Triangle;
+   Square Square(20, 20, 20, 20, 90, 90, 90, 90);
+   Print_info(&Square);
 
-    Equilateral_Triangle.Get_name();
-    Equilateral_Triangle.Get_side();
-    Equilateral_Triangle.Sides();
-    Equilateral_Triangle.Angles();
+   Parallelogram Parallelogram(20, 30, 20, 30, 30, 40, 30, 40);
+   Print_info(&Parallelogram);
+   
+   Rhomb Rhomb(30, 30, 30, 30, 30, 40, 30, 40);
+   Print_info(&Rhomb);
 
-    Rectangle Rectangle;
-
-    Rectangle.Get_name();
-    Rectangle.Get_side();
-    Rectangle.Sides();
-    Rectangle.Angles();
-
-    Square Square;
-
-    Square.Get_name();
-    Square.Get_side();
-    Square.Sides();
-    Square.Angles();
-
-    Parallelogram Parallelogram;
-
-    Parallelogram.Get_name();
-    Parallelogram.Get_side();
-    Parallelogram.Sides();
-    Parallelogram.Angles();
-
+   return 0;
 }
