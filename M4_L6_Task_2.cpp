@@ -24,7 +24,7 @@ protected:
 class Triangle :public Figure
 {
 public:
-    Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle)
+    Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle)
     {
         name = "Треугольник ";
         sides_count = 3;
@@ -33,11 +33,7 @@ public:
         this->c_side = c_side;
         this->A_angle = A_angle;
         this->B_angle = B_angle;
-        this->C_angle = C_angle;
-    }
-    Triangle()
-    {
-
+        C_angle = 180 - A_angle - B_angle;
     }
 
     void Print_info() override
@@ -96,11 +92,11 @@ protected:
 class Right_Triangle : public Triangle
 {
 public:
-    Right_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle) 
-        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle) 
+    Right_Triangle(int a_side, int b_side, int A_angle, int B_angle, int C_angle) 
+        : Triangle(a_side, b_side, sqrt(a_side* a_side + b_side * b_side), A_angle, B_angle)
     {
         name = "Прямоугольный треугольник";
-        C_angle = 90;
+        this->C_angle = 90;
     }
 
     void Print_info() override
@@ -115,10 +111,12 @@ public:
 class Isosceles_Triangle : public Triangle
 {
 public:
-    Isosceles_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle) 
-        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle) 
+    Isosceles_Triangle(int a_side, int b_side, int A_angle, int B_angle)
+        : Triangle(a_side, b_side, sqrt(a_side* a_side + b_side * b_side), A_angle, B_angle)
     {
         name = "Равнобедренный треугольник ";
+        c_side = a_side;
+        C_angle = 180 - A_angle - B_angle;
         a_side = c_side;
         A_angle = C_angle;
     }
@@ -134,12 +132,14 @@ public:
 class Equilateral_Triangle : public Triangle
 {
 public:
-    Equilateral_Triangle(int a_side, int b_side, int c_side, int A_angle, int B_angle, int C_angle)
-        : Triangle(a_side, b_side, c_side, A_angle, B_angle, C_angle)
+    Equilateral_Triangle(int a_side, int A_angle)
+        : Triangle(a_side, b_side, c_side, A_angle, B_angle)
     {
         name = "Равносторонний треугольник ";
         sides_count = 3;
-        a_side = b_side = c_side;
+        a_side = 0;
+        c_side = this->a_side;
+        b_side = this->a_side;
         A_angle = 60;
         B_angle = 60;
         C_angle = 60;
@@ -157,13 +157,13 @@ public:
 class Rectangle : public Quadrangle
 {
 public:
-    Rectangle(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle) 
+    Rectangle(int a_side, int b_side, int A_angle) 
         : Quadrangle (a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
         name = "Прямоугольник ";
         sides_count = 4;
-        a_side = c_side;
-        b_side = d_side;
+        c_side = a_side;
+        d_side = b_side;
         A_angle = 90;
         B_angle = 90;
         C_angle = 90;
@@ -181,12 +181,12 @@ public:
 class Square : public Quadrangle
 {
 public:
-    Square(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+    Square(int a_side, int A_angle)
         : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
         name = "Квадрат ";
         sides_count = 4;
-        a_side = b_side = c_side = d_side;
+        b_side = c_side = d_side = a_side;
         A_angle = 90;
         B_angle = 90;
         C_angle = 90;
@@ -204,15 +204,15 @@ public:
 class Parallelogram : public Quadrangle
 {
 public:
-    Parallelogram(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+    Parallelogram(int a_side, int b_side, int A_angle, int B_angle)
         : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
         name = "Параллелограмм ";
         sides_count = 4;
-        a_side = c_side;
-        b_side = d_side;
-        A_angle = C_angle;
-        B_angle = D_angle;
+        c_side = a_side;
+        d_side = b_side;
+        C_angle = A_angle;
+        D_angle = B_angle;
     }
     void Print_info() override
     {
@@ -226,14 +226,14 @@ public:
 class Rhomb : public Quadrangle
 {
 public:
-    Rhomb(int a_side, int b_side, int c_side, int d_side, int A_angle, int B_angle, int C_angle, int D_angle)
+    Rhomb(int a_side, int A_angle, int B_angle)
         : Quadrangle(a_side, b_side, c_side, d_side, A_angle, B_angle, C_angle, D_angle)
     {
         name = "Ромб ";
         sides_count = 4;
-        a_side = b_side = c_side = d_side;
-        A_angle = C_angle;
-        B_angle = D_angle;
+        b_side = c_side = d_side = a_side;
+        C_angle = A_angle;
+        D_angle = B_angle;
     }
     void Print_info() override
     {
@@ -255,31 +255,31 @@ int main()
 
 
    Figure figure;
-   Triangle triangle(10, 20, 30, 50, 60, 70);
+   Triangle triangle(10, 20, 30, 50, 60);
    Print_info(&triangle);
 
-   Right_Triangle right_triangle(10, 20, 30, 50, 60, 90);
+   Right_Triangle right_triangle(10, 20, 30, 50, 60);
    Print_info(&right_triangle);
 
-   Isosceles_Triangle Isosceles_Triangle(10, 20, 10, 50, 60, 50);
+   Isosceles_Triangle Isosceles_Triangle(10, 20, 50, 60);
    Print_info(&Isosceles_Triangle);
 
-   Equilateral_Triangle Equilateral_Triangle(30, 30, 30, 60, 60, 60);
+   Equilateral_Triangle Equilateral_Triangle(30, 60);
    Print_info(&Equilateral_Triangle);
 
    Quadrangle Quadrangle(10, 20, 30, 40, 50, 60, 70, 80);
    Print_info(&Quadrangle);
 
-   Rectangle Rectangle(10, 20, 10, 20, 90, 90, 90, 90);
+   Rectangle Rectangle(10, 20, 90);
    Print_info(&Rectangle);
 
-   Square Square(20, 20, 20, 20, 90, 90, 90, 90);
+   Square Square(20, 90);
    Print_info(&Square);
 
-   Parallelogram Parallelogram(20, 30, 20, 30, 30, 40, 30, 40);
+   Parallelogram Parallelogram(20, 30, 30, 40);
    Print_info(&Parallelogram);
    
-   Rhomb Rhomb(30, 30, 30, 30, 30, 40, 30, 40);
+   Rhomb Rhomb(30, 30, 40);
    Print_info(&Rhomb);
 
    return 0;
