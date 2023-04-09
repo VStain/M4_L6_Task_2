@@ -1,14 +1,11 @@
 ﻿#include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 
 class Figure
 {
 public:
-    Figure() 
-    {
-
-    }
 
     virtual void Print_info()
     {
@@ -18,7 +15,7 @@ public:
 
 protected:
     int sides_count = 0;
-    string name = "Фигура: ";
+    string name;
 };
 
 class Triangle :public Figure
@@ -92,7 +89,7 @@ protected:
 class Right_Triangle : public Triangle
 {
 public:
-    Right_Triangle(int a_side, int b_side, int A_angle, int B_angle, int C_angle) 
+    Right_Triangle(int a_side, int b_side, int A_angle, int B_angle) 
         : Triangle(a_side, b_side, sqrt(a_side* a_side + b_side * b_side), A_angle, B_angle)
     {
         name = "Прямоугольный треугольник";
@@ -133,17 +130,18 @@ class Equilateral_Triangle : public Triangle
 {
 public:
     Equilateral_Triangle(int a_side, int A_angle)
-        : Triangle(a_side, b_side, c_side, A_angle, B_angle)
+        : Triangle(a_side, a_side, a_side, A_angle, A_angle)
     {
         name = "Равносторонний треугольник ";
+    }
+    /* { // Альтернативный вариант записи
+        name = "Равносторонний треугольник ";
         sides_count = 3;
-        a_side = 0;
         c_side = this->a_side;
         b_side = this->a_side;
-        A_angle = 60;
         B_angle = 60;
         C_angle = 60;
-    }
+    }*/
     void Print_info() override
     {
         cout << "Название фигуры: " << name << endl;
@@ -258,7 +256,7 @@ int main()
    Triangle triangle(10, 20, 30, 50, 60);
    Print_info(&triangle);
 
-   Right_Triangle right_triangle(10, 20, 30, 50, 60);
+   Right_Triangle right_triangle(10, 20, 30, 50);
    Print_info(&right_triangle);
 
    Isosceles_Triangle Isosceles_Triangle(10, 20, 50, 60);
@@ -284,3 +282,4 @@ int main()
 
    return 0;
 }
+
